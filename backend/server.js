@@ -5,7 +5,7 @@ const userManagementRoutes = require('./routes/user-management.routes');
 
 const app = express();
 
-// CORS 配置
+// CORS Configuration
 app.use(cors({
     origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -14,14 +14,14 @@ app.use(cors({
     maxAge: 86400
 }));
 
-// 其他中间件
+// Other Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 路由
+// Routes
 app.use('/api', userManagementRoutes);
 
-// 错误处理中间件
+// Error Handling Middleware
 app.use((err, req, res, next) => {
     console.error('Error details:', {
         message: err.message,
@@ -40,7 +40,7 @@ app.use((err, req, res, next) => {
     });
 });
 
-// 启动服务器
+// Start Server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

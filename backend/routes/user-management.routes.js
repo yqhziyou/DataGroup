@@ -3,7 +3,7 @@ const router = express.Router();
 const { body, param } = require('express-validator');
 const userController = require('../controllers/UserManagementController');
 
-// 添加调试日志
+// Add debug logs
 console.log('userController:', userController);
 console.log('updateUserEmail method:', userController.updateUserEmail);
 

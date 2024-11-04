@@ -19,14 +19,14 @@ export const TestPanel = () => {
 
     const testCases = [
         {
-            name: '测试更新邮箱',
+            name: 'Test Update Email',
             action: () => handleApiCall(
                 () => userManagementService.updateUserEmail(1, 'test@example.com')
             ),
             color: '#3B82F6'
         },
         {
-            name: '测试添加交易',
+            name: 'Test Add Transaction',
             action: () => handleApiCall(
                 () => userManagementService.addTransaction({
                     userId: 1,
@@ -39,14 +39,14 @@ export const TestPanel = () => {
             color: '#10B981'
         },
         {
-            name: '测试获取交易数量',
+            name: 'Test Get Transaction Count',
             action: () => handleApiCall(
                 () => userManagementService.getUserTransactionCount(1)
             ),
             color: '#F59E0B'
         },
         {
-            name: '测试保护性看跌期权',
+            name: 'Test Protective Put',
             action: () => handleApiCall(
                 () => userManagementService.calculateProtectivePut({
                     purchasePrice: 100,
@@ -57,7 +57,7 @@ export const TestPanel = () => {
             color: '#8B5CF6'
         },
         {
-            name: '测试备兑看涨期权',
+            name: 'Test Covered Call',
             action: () => handleApiCall(
                 () => userManagementService.calculateCoveredCall({
                     purchasePrice: 100,
@@ -72,7 +72,7 @@ export const TestPanel = () => {
     return (
         <div style={{ padding: '1rem' }}>
             <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem' }}>
-                API 测试面板
+                API Test Panel
             </h2>
             
             <div style={{ marginBottom: '1rem' }}>
@@ -96,7 +96,7 @@ export const TestPanel = () => {
                 ))}
             </div>
 
-            {loading && <div style={{ color: '#6B7280' }}>加载中...</div>}
+            {loading && <div style={{ color: '#6B7280' }}>Loading...</div>}
             
             {result && (
                 <pre style={{ 

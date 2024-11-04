@@ -1,27 +1,27 @@
 import api from './api';
 
 export const userManagementService = {
-    // 更新用户邮箱
+    // Update user email
     updateUserEmail: (userId, newEmail) => {
         return api.put(`/user/${userId}/email`, { newEmail });
     },
 
-    // 添加交易
+    // Add transaction
     addTransaction: (data) => {
         return api.post('/transaction', data);
     },
 
-    // 获取用户交易数量
+    // Get user transaction count
     getUserTransactionCount: (userId) => {
         return api.get(`/user/${userId}/transactions/count`);
     },
 
-    // 计算保护性看跌期权
+    // Calculate protective put
     calculateProtectivePut: (data) => {
         return api.post('/calculate/protective-put', data);
     },
 
-    // 计算备兑看涨期权
+    // Calculate covered call
     calculateCoveredCall: (data) => {
         return api.post('/calculate/covered-call', data);
     },

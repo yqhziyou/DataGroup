@@ -7,10 +7,10 @@ const api = axios.create({
     },
 });
 
-// 请求拦截器
+// Request Interceptor
 api.interceptors.request.use(
     (config) => {
-        // 可以在这里添加token等认证信息
+        // Add token or other authentication information here
         return config;
     },
     (error) => {
@@ -18,11 +18,11 @@ api.interceptors.request.use(
     }
 );
 
-// 响应拦截器
+    // Response Interceptor
 api.interceptors.response.use(
     (response) => response.data,
     (error) => {
-        // 统一错误处理
+        // Unified error handling
         console.error('API Error:', error);
         return Promise.reject(error);
     }

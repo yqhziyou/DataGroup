@@ -9,7 +9,7 @@ export const UserManagementPage = () => {
                 padding: '1rem',
                 borderBottom: '1px solid #E5E7EB'
             }}>
-                用户管理
+                User Management
             </h1>
             <TestPanel />
         </div>
