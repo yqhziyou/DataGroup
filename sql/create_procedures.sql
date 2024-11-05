@@ -96,11 +96,19 @@ END;
 CREATE OR REPLACE TRIGGER trg_transaction_audit
 AFTER INSERT OR UPDATE OR DELETE ON TransactionHistory
 FOR EACH ROW
+DECLARE
+    v_userid NUMBER;
 BEGIN
+    IF INSERTING OR UPDATING THEN
+        v_userid := :NEW.UserID;
+    ELSIF DELETING THEN
+        v_userid := :OLD.UserID;
+    END IF;
     INSERT INTO AuditLog (LogID, UserID, Action, TableAffected, Timestamp)
-    VALUES (LogID_SEQ.NEXTVAL, :NEW.UserID, 'Transaction Modified', 'TransactionHistory', SYSTIMESTAMP);
+    VALUES (LogID_SEQ.NEXTVAL, v_userid, 'Transaction Modified', 'TransactionHistory', SYSTIMESTAMP);
 END;
 /
+
 
 -- Package to group procedures and functions
 CREATE OR REPLACE PACKAGE user_management_pkg IS
@@ -119,22 +127,23 @@ CREATE OR REPLACE PACKAGE BODY user_management_pkg IS
         UPDATE UserInformation
         SET Email = p_new_email
         WHERE UserID = p_userid;
-        COMMIT;
     EXCEPTION
         WHEN NO_DATA_FOUND THEN
             DBMS_OUTPUT.PUT_LINE('No user found with the given ID.');
+            RAISE; 
         WHEN OTHERS THEN
             DBMS_OUTPUT.PUT_LINE('An error occurred: ' || SQLERRM);
+            RAISE; 
     END;
 
     PROCEDURE add_transaction(p_userid NUMBER, p_tradetypeid NUMBER, p_stocksymbol VARCHAR2, p_quantity NUMBER, p_price NUMBER) IS
     BEGIN
         INSERT INTO TransactionHistory (TransactionID, UserID, TradeTypeID, StockSymbol, Quantity, Price, TransactionDate)
         VALUES (TransactionID_SEQ.NEXTVAL, p_userid, p_tradetypeid, p_stocksymbol, p_quantity, p_price, SYSDATE);
-        COMMIT;
     EXCEPTION
         WHEN OTHERS THEN
             DBMS_OUTPUT.PUT_LINE('An error occurred while adding the transaction: ' || SQLERRM);
+            RAISE; 
     END;
 
     FUNCTION get_user_transaction_count(p_userid NUMBER) RETURN NUMBER IS

@@ -40,8 +40,7 @@ class UserManagementModel {
             }
         }
     }
-
-
+    
     async addTransaction(userId, tradeTypeId, stockSymbol, quantity, price) {
         let connection;
         try {
